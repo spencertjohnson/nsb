@@ -169,6 +169,13 @@ install(DIRECTORY ${CPP_INCLUDE_DIR}/ ${CPP_PROTO_DIR}/
     FILES_MATCHING PATTERN "*.h"
 )
 
+# Install nsb_pb2.py
+install(DIRECTORY "${NSB_GEN_PY_DIR}/"
+    DESTINATION "${NSB_INSTALL_BINDIR}/python_proto"
+    COMPONENT runtime
+    FILES_MATCHING PATTERN "*.py"
+)
+
 ### FOR TESTING ###
 
 # Compile nsb_test.
