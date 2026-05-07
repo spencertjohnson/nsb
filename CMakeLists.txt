@@ -29,6 +29,8 @@ set(CPP_INCLUDE_DIR "${CPP_DIR}/include")
 set(CPP_PROTO_DIR "${CPP_DIR}/proto")
 set(PYTHON_DIR "${CMAKE_SOURCE_DIR}/python")
 set(PROTO_DIR "${CMAKE_SOURCE_DIR}/proto")
+set(NSB_GEN_PY_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated/python")
+file(MAKE_DIRECTORY "${NSB_GEN_PY_DIR}")
 message(STATUS "C++ directory: ${CPP_DIR}")
 message(STATUS "▸ Source: ${CPP_SRC_DIR}")
 message(STATUS "▸ Headers: ${CPP_INCLUDE_DIR}")
@@ -104,7 +106,7 @@ protobuf_generate(
     TARGET nsb
     LANGUAGE python
     IMPORT_DIRS ${PROTO_DIR}
-    PROTOC_OUT_DIR ${PYTHON_DIR}/proto
+    PROTOC_OUT_DIR ${NSB_GEN_PY_DIR}
     PROTOS ${PROTO_DIR}/nsb.proto
 )
 # Cleaning up.
