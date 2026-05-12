@@ -84,7 +84,7 @@ target_link_libraries(nsb PUBLIC
 # Include directories.
 target_include_directories(nsb PUBLIC
     ${CPP_INCLUDE_DIR}
-    ${CPP_PROTO_DIR}
+    ${CPP_DIR}
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
 )
@@ -118,7 +118,7 @@ target_link_libraries(nsb_daemon PUBLIC nsb)
 # Include directories.
 target_include_directories(nsb_daemon PUBLIC 
     ${CPP_INCLUDE_DIR}
-    ${CPP_PROTO_DIR}
+    ${CPP_DIR}
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
 )
