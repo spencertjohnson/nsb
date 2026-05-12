@@ -84,7 +84,6 @@ target_link_libraries(nsb PUBLIC
 # Include directories.
 target_include_directories(nsb PUBLIC
     ${CPP_INCLUDE_DIR}
-    ${CPP_PROTO_DIR}/proto
     ${CPP_PROTO_DIR}
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
@@ -120,7 +119,6 @@ target_link_libraries(nsb_daemon PUBLIC nsb)
 target_include_directories(nsb_daemon PUBLIC 
     ${CPP_INCLUDE_DIR}
     ${CPP_PROTO_DIR}
-    ${CPP_PROTO_DIR}/proto
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
 )
@@ -174,7 +172,6 @@ add_executable(nsb_test ${CPP_DIR}/nsb_test.cc)
 target_link_libraries(nsb_test PUBLIC nsb)
 target_include_directories(nsb_test PUBLIC 
     ${CPP_INCLUDE_DIR}
-    ${CPP_PROTO_DIR}/proto
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
 )
