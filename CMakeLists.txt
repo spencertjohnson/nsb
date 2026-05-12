@@ -29,8 +29,6 @@ set(CPP_INCLUDE_DIR "${CPP_DIR}/include")
 set(CPP_PROTO_DIR "${CPP_DIR}/proto")
 set(PYTHON_DIR "${CMAKE_SOURCE_DIR}/python")
 set(PROTO_DIR "${CMAKE_SOURCE_DIR}/proto")
-set(NSB_GEN_PY_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated/python")
-file(MAKE_DIRECTORY "${NSB_GEN_PY_DIR}")
 message(STATUS "C++ directory: ${CPP_DIR}")
 message(STATUS "▸ Source: ${CPP_SRC_DIR}")
 message(STATUS "▸ Headers: ${CPP_INCLUDE_DIR}")
@@ -86,7 +84,6 @@ target_link_libraries(nsb PUBLIC
 # Include directories.
 target_include_directories(nsb PUBLIC
     ${CPP_INCLUDE_DIR}
-    ${CPP_PROTO_DIR}/proto
     ${CPP_PROTO_DIR}
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
@@ -98,7 +95,7 @@ protobuf_generate(
     TARGET nsb
     LANGUAGE cpp
     IMPORT_DIRS ${PROTO_DIR}
-    PROTOC_OUT_DIR ${CPP_DIR}/proto
+    PROTOC_OUT_DIR ${CPP_DIR}
     PROTOS ${PROTO_DIR}/nsb.proto
 )
 # Generate Python protobuf file.
@@ -106,7 +103,7 @@ protobuf_generate(
     TARGET nsb
     LANGUAGE python
     IMPORT_DIRS ${PROTO_DIR}
-    PROTOC_OUT_DIR ${NSB_GEN_PY_DIR}
+    PROTOC_OUT_DIR ${PYTHON_DIR}
     PROTOS ${PROTO_DIR}/nsb.proto
 )
 # Cleaning up.
@@ -122,7 +119,6 @@ target_link_libraries(nsb_daemon PUBLIC nsb)
 target_include_directories(nsb_daemon PUBLIC 
     ${CPP_INCLUDE_DIR}
     ${CPP_PROTO_DIR}
-    ${CPP_PROTO_DIR}/proto
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
 )
@@ -169,13 +165,6 @@ install(DIRECTORY ${CPP_INCLUDE_DIR}/ ${CPP_PROTO_DIR}/
     FILES_MATCHING PATTERN "*.h"
 )
 
-# Install nsb_pb2.py
-install(DIRECTORY "${NSB_GEN_PY_DIR}/"
-    DESTINATION "${NSB_INSTALL_BINDIR}/python_proto"
-    COMPONENT runtime
-    FILES_MATCHING PATTERN "*.py"
-)
-
 ### FOR TESTING ###
 
 # Compile nsb_test.
@@ -183,7 +172,6 @@ add_executable(nsb_test ${CPP_DIR}/nsb_test.cc)
 target_link_libraries(nsb_test PUBLIC nsb)
 target_include_directories(nsb_test PUBLIC 
     ${CPP_INCLUDE_DIR}
-    ${CPP_PROTO_DIR}/proto
     ${Protobuf_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
 )
